@@ -6,26 +6,7 @@ import os
 import libvirt
 import sys
 
-# gotta find out how many instances *should* be there
-# look in the nova dir
-
-instance_dir = '/var/lib/nova/instances/'
-instances = os.listdir(instance_dir)
-assigned=[]
-for i in instances:
-  if i.startswith('instance-'):
-    assigned.append(i)
-
-# connect to libvirt to find out how many instances are
-# *actually* running
-
-virt = libvirt.openReadOnly(None)
-if virt == None:
-  print 'Failed to talk to hypervisor'
-  sys.exit(1)
-
-numDoms = virt.numOfDomains()
-
+# Function definitions
 def find_missing_domain():
   missing = []
   for a in assigned:
@@ -45,6 +26,29 @@ def define_missing_domain(domid):
   dom = virt2.lookupByName(domid)
   dom.create()
   virt2.close()
+
+# End function definition
+# Begin program flow
+#
+# gotta find out how many instances *should* be there
+# look in the nova dir
+
+instance_dir = '/var/lib/nova/instances/'
+instances = os.listdir(instance_dir)
+assigned=[]
+for i in instances:
+  if i.startswith('instance-'):
+    assigned.append(i)
+
+# connect to libvirt to find out how many instances are
+# *actually* running
+
+virt = libvirt.openReadOnly(None)
+if virt == None:
+  print 'Failed to talk to hypervisor'
+  sys.exit(1)
+
+numDoms = virt.numOfDomains()
 
 # Compare assigned vs running
 # If same, exit 0, else, try to define and start failed instances
