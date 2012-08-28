@@ -1,1 +1,1 @@
-default['script_dir'] = "/usr/local/bin/"
+default['virsher']['file_path'] = "/usr/local/bin/virsh-check.py"
