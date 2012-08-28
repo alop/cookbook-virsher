@@ -3,6 +3,7 @@
 # Recipe:: default
 #
 
+
 cookbook_file node['script_dir']['virt-check.py'] do
   source "virt-check.py"
   mode    "0544"

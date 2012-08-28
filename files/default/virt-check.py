@@ -5,8 +5,19 @@
 import os
 import libvirt
 import sys
+import smtplib
+import socket
 
 # Function definitions
+def send_email(domid):
+  to = "alopgeek@gmail.com"
+  from_addr = "root@%s" % socket.getfqdn()
+  smtpserver = smtplib.SMTP("outbound.smtp.usi.net", 25)
+  smtpserver.ehlo()
+  header = 'From: %s\r\nTo: %s\r\nSubject:Domain %s undefined\r\n\r\n' % from_addr, to, domid
+  smtpserver.sendmail(from_addr, to, header)
+  smtpserver.quit()
+
 def find_missing_domain():
   missing = []
   for a in assigned:
@@ -61,6 +72,7 @@ else:
   missDom = find_missing_domain()
   print "Trying to define missing domain"
   for m in missDom:
-    define_missing_domain(m)
+    #define_missing_domain(m)
+    send_email(m)
 
 

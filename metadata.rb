@@ -9,6 +9,8 @@ recipe            "virsher", "Installs the script, sets a cronjob"
   supports os
 end
 
+depends "ssmtp"
+
 attribute "virsher/script_dir",
   :display_name => "Script Directory",
   :description => "The directory to install in",
