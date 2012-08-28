@@ -14,7 +14,7 @@ def send_email(domid):
   from_addr = "root@%s" % socket.getfqdn()
   smtpserver = smtplib.SMTP("outbound.smtp.usi.net", 25)
   smtpserver.ehlo()
-  header = 'From: %s\r\nTo: %s\r\nSubject:Domain %s undefined\r\n\r\n' % from_addr, to, domid
+  header = 'From: %s\r\nTo: %s\r\nSubject:Domain %s undefined\r\n\r\n' % (from_addr, to, domid)
   smtpserver.sendmail(from_addr, to, header)
   smtpserver.quit()
 
