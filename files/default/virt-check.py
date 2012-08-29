@@ -10,7 +10,7 @@ import socket
 
 # Function definitions
 def send_email(domid):
-  to = "alopgeek@gmail.com"
+  to = "DL-SilverliningTier3@att.com", "DL-SilverliningTier2@att.com"
   from_addr = "root@%s" % socket.getfqdn()
   smtpserver = smtplib.SMTP("outbound.smtp.usi.net", 25)
   smtpserver.ehlo()
